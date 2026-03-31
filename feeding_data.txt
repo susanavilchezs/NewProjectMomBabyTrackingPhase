@@ -1,0 +1,20 @@
+Santi,Bottle,4.5,8:00 AM,15,Morning feed
+Santi,Breastfeeding,3.0,10:30 AM,20,Quick snack
+Santi,Bottle,5.0,1:00 PM,18,After nap
+Santi,Bottle,4.0,3:30 PM,15,Afternoon feed
+Santi,Breastfeeding,3.5,6:00 PM,22,Evening feed
+Santi,Bottle,6.0,9:00 PM,20,Bedtime bottle
+Santi,Bottle,4.8,7:45 AM,14,Energetic morning
+Santi,Breastfeeding,3.2,11:00 AM,19,Midday snack
+Santi,Bottle,5.3,2:15 PM,17,Post nap
+Santi,Bottle,4.1,4:45 PM,16,Before walk
+Santi,Breastfeeding,3.7,6:30 PM,21,Calm evening
+Santi,Bottle,5.8,8:45 PM,20,Before sleep
+Santi,Bottle,4.6,7:30 AM,15,Good morning
+Santi,Breastfeeding,3.4,10:15 AM,18,Light feed
+Santi,Bottle,5.1,12:45 PM,16,Lunch feed
+Santi,Bottle,4.3,3:00 PM,15,Afternoon snack
+Santi,Breastfeeding,3.6,5:45 PM,20,Evening snack
+Santi,Bottle,6.2,9:15 PM,22,Big bedtime feed
+Santi,Bottle,4.9,8:10 AM,14,Morning energy
+Santi,Breastfeeding,3.8,11:30 AM,19,Happy baby
