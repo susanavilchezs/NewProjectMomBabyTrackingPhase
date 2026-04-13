@@ -1,8 +1,15 @@
+
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
 import java.util.List;
+
+/**
+ * Graphical User Interface for the Baby Feeding Tracker.
+ * Provides a window for users to interact with feeding data and the database.
+ */
 
 public class FeedingGUI extends JFrame {
     private FeedingManager manager = new FeedingManager();
@@ -12,24 +19,25 @@ public class FeedingGUI extends JFrame {
     private JTextField txtName, txtType, txtAmount, txtTime, txtDuration, txtNotes;
 
     public FeedingGUI() {
-        setTitle("Baby Feeding Tracker - Phase 3");
+        // GUI Layout (Test 1)
+        setTitle("Santi's Feeding Tracker - Phase 4 (Database)");
         setSize(950, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // TOP: Load Button
+        // TOP: Database Connection (Test 2)
         JPanel topPanel = new JPanel();
-        JButton btnLoad = new JButton("Load Records From File");
-        topPanel.add(btnLoad);
+        JButton btnConnect = new JButton("Connect to Database (.db)");
+        topPanel.add(btnConnect);
         add(topPanel, BorderLayout.NORTH);
 
-       //CENTER
+        // CENTER: Table Display (Test 3)
         String[] columnNames = {"ID", "Baby Name", "Feeding Type", "Amount (oz)", "Time", "Duration (min)", "Notes"};
         tableModel = new DefaultTableModel(columnNames, 0);
         dataTable = new JTable(tableModel);
         add(new JScrollPane(dataTable), BorderLayout.CENTER);
 
-
+        // BOTTOM: Inputs and Action Buttons
         JPanel bottomPanel = new JPanel(new GridLayout(3, 1));
 
         JPanel inputFieldsPanel = new JPanel();
@@ -48,9 +56,9 @@ public class FeedingGUI extends JFrame {
         inputFieldsPanel.add(new JLabel("Notes:")); inputFieldsPanel.add(txtNotes);
 
         JPanel buttonsPanel = new JPanel();
-        JButton btnAdd = new JButton("Add Record");
-        JButton btnUpdate = new JButton("Update Selected");
-        JButton btnRemove = new JButton("Remove Selected");
+        JButton btnAdd = new JButton("Add to DB");
+        JButton btnUpdate = new JButton("Update DB");
+        JButton btnRemove = new JButton("Remove from DB");
         JButton btnAvg = new JButton("Calculate Average");
         JButton btnExit = new JButton("Exit");
 
@@ -64,19 +72,23 @@ public class FeedingGUI extends JFrame {
         bottomPanel.add(buttonsPanel);
         add(bottomPanel, BorderLayout.SOUTH);
 
+        // --- BUTTON ACTIONS ---
 
-
-        btnLoad.addActionListener(e -> {
+        // Test 2: Connecting to Database
+        btnConnect.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                if (manager.loadFromFile(selectedFile.getAbsolutePath())) {
+                if (manager.connect(selectedFile.getAbsolutePath())) {
                     updateTableUI();
-                    JOptionPane.showMessageDialog(this, "File Loaded!");
+                    JOptionPane.showMessageDialog(this, "Database Connected Successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error connecting to database.");
                 }
             }
         });
 
+        // Test 4: Create Data
         btnAdd.addActionListener(e -> {
             try {
                 FeedingRecord newRecord = new FeedingRecord(
@@ -90,10 +102,11 @@ public class FeedingGUI extends JFrame {
                 updateTableUI();
                 clearInputFields();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error: Check your numbers.");
+                JOptionPane.showMessageDialog(this, "Input Error: Check your numeric values.");
             }
         });
 
+        // Test 6: Update Data
         btnUpdate.addActionListener(e -> {
             int row = dataTable.getSelectedRow();
             if (row != -1) {
@@ -107,32 +120,35 @@ public class FeedingGUI extends JFrame {
                     );
                     manager.updateRecord(row, updated);
                     updateTableUI();
+                    JOptionPane.showMessageDialog(this, "Record Updated in Database!");
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Invalid data for update.");
+                    JOptionPane.showMessageDialog(this, "Error updating record.");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Select a row to update.");
+                JOptionPane.showMessageDialog(this, "Select a record to update.");
             }
         });
 
+        // Test 5: Remove Data
         btnRemove.addActionListener(e -> {
             int row = dataTable.getSelectedRow();
             if (row != -1) {
                 manager.removeRecord(row);
                 updateTableUI();
+                JOptionPane.showMessageDialog(this, "Record Removed from Database!");
             }
         });
 
+        // Test 7: Custom Feature
         btnAvg.addActionListener(e -> {
             double avg = manager.calculateAverageAmount();
-            JOptionPane.showMessageDialog(this, "Average: " + String.format("%.2f", avg) + " oz");
+            JOptionPane.showMessageDialog(this, "Average Amount (SQL Calculation): " + String.format("%.2f", avg) + " oz");
         });
 
         btnExit.addActionListener(e -> System.exit(0));
 
         setVisible(true);
     }
-
 
     private void updateTableUI() {
         tableModel.setRowCount(0);

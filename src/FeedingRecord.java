@@ -1,10 +1,24 @@
+/**
+ * Represents a single feeding event for a baby.
+ * This class holds data like amount, time, and duration.
+ */
+
+
 public class FeedingRecord {
+    /**
+     * Constructs a new FeedingRecord with specified details.
+     * @param babyName The name of the baby.
+     * @param amountOz The amount consumed in ounces.
+     */
+
     private String babyName;
     private String feedingType;
     private double amountOz;
     private String feedingTime;
     private int durationMinutes;
     private String notes;
+
+
 
     public FeedingRecord(String babyName, String feedingType, double amountOz, String feedingTime, int durationMinutes, String notes) {
         this.babyName = babyName;
